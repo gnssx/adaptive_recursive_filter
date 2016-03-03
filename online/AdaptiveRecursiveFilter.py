@@ -5,6 +5,7 @@ from Animate import Animate
 
 class AdaptiveRecursiveFilter(Animate):
 
+	# online adaptive recursive filter
 	def _online_filter(self, frame_num):
 		n = frame_num % self._N
 		# generate noise
@@ -23,6 +24,7 @@ class AdaptiveRecursiveFilter(Animate):
 			self._error[n] = self._noisy_data[n] - np.dot(tmp.T, self._h)
 			self._h += (self._delta * tmp * self._error[n])
 
+	# get adaptive recursive filter parameters
 	def _setup_params(self, params):
 		self._N = params[0]
 		self._M = params[1]
@@ -31,6 +33,7 @@ class AdaptiveRecursiveFilter(Animate):
 		self._noise_val = params[4]
 		self._uniform = params[5]
 
+	# create data arrays
 	def _create_data(self):
 		self._t = np.array([n for n in range(self._N)]) \
 						.reshape(self._N, 1)

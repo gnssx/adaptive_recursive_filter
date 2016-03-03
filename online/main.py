@@ -14,7 +14,7 @@ def main():
 	noise_val = 0.5		# noise value
 	uniform = False		# noise type
 
-	# online filter
+	# apply online adaptive recursive filter
 	arf = AdaptiveRecursiveFilter([N, M, f, delta, noise_val, uniform])
 
 
