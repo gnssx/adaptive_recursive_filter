@@ -14,10 +14,10 @@ class Animate:
 		self._setup_axes()
 		# start animation
 		self._anim = animation.FuncAnimation(self._fig, self._animate, \
-												init_func=self._init, \
-												repeat=True, \
-												interval=30, \
-												blit=True)
+							init_func=self._init, \
+							repeat=True, \
+							interval=30, \
+							blit=True)
 		plt.show()
 
 	def _init(self):
@@ -40,13 +40,14 @@ class Animate:
 	def _setup_plot(self):
 		self._fig, self._ax1 = plt.subplots(nrows=1, ncols=1)
 		self._fig.tight_layout(pad=3, w_pad=0, h_pad=0)
-		self._fig.suptitle("Online Adaptive Recursive Filter", fontsize=self._fontsize)
+		self._fig.suptitle("Online Adaptive Recursive Filter", \
+							fontsize=self._fontsize)
 		self._fig.canvas.set_window_title("Online Adaptive Recursive Filter")
 
 	def _setup_axes(self):
 		self._ax1.axis([0, self._N, -2, 2])
 		self._ax1.set_xlabel("samples", fontsize=self._fontsize)
-		self._ax1.set_ylabel("amplitude", fontsize=self._fontsize)		
+		self._ax1.set_ylabel("amplitude", fontsize=self._fontsize)	
 		self._line_noisy_data, = self._ax1.plot([], [], "r")
 		self._line_result, = self._ax1.plot([], [], "b")
 

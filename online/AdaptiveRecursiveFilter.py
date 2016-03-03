@@ -21,7 +21,7 @@ class AdaptiveRecursiveFilter(Animate):
 		for n in range(self._N - self._M):
 			tmp = self._noise[n:n + self._M].reshape(self._M, 1)
 			self._error[n] = self._noisy_data[n] - np.dot(tmp.T, self._h)
-			self._h += (self._delta * tmp * self._error[n]) # / np.linalg.norm(tmp)
+			self._h += (self._delta * tmp * self._error[n])
 
 	def _setup_params(self, params):
 		self._N = params[0]
@@ -32,7 +32,8 @@ class AdaptiveRecursiveFilter(Animate):
 		self._uniform = params[5]
 
 	def _create_data(self):
-		self._t = np.array([n for n in range(self._N)]).reshape(self._N, 1)
+		self._t = np.array([n for n in range(self._N)]) \
+						.reshape(self._N, 1)
 		self._noise = np.zeros((self._N,1))
 		self._noisy_data = np.zeros((self._N,1))
 		self._error = np.zeros((self._N,1))
