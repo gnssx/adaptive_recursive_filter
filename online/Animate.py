@@ -52,6 +52,7 @@ class Animate:
 		self._line_result, = self._ax1.plot([], [], "b")
 
 	def _update_plot(self):
+		# plot noisy signal and filtered result data
 		self._line_noisy_data.set_ydata(self._noisy_data)
 		self._line_result.set_ydata(self._error)
 		return self._line_noisy_data, self._line_result,
