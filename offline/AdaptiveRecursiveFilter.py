@@ -10,8 +10,8 @@ class AdaptiveRecursiveFilter(AddNoise):
 		self._M = params[0]
 		self._delta = params[1]
 
+	# offline adaptive recursive least squares filter
 	def offline_filter(self, noisy_data, noise):
-		# setup filter parameters and apply recursive least squares (RLS) algorithm
 		N = noisy_data.shape[0]		# number of data samples
 		h = np.zeros((self._M,1))	# filter co-efficients
 		error = np.zeros((N,1))		# error
@@ -19,6 +19,6 @@ class AdaptiveRecursiveFilter(AddNoise):
 		for n in range(N - self._M):
 			tmp = noise[n:n + self._M]
 			error[n] = noisy_data[n] - np.dot(tmp.T, h)
-			h += (self._delta * tmp * error[n]) # / np.linalg.norm(tmp)
+			h += (self._delta * tmp * error[n])
 			progress[n] = h[0]
 		return error, progress
