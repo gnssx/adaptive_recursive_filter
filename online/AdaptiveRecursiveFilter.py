@@ -8,20 +8,24 @@ class AdaptiveRecursiveFilter(Animate):
 	# online adaptive recursive filter
 	def _online_filter(self, frame_num):
 		n = frame_num % self._N
+
 		# generate noise
 		noise = np.random.uniform(-self._noise_val, self._noise_val) \
 				if self._uniform \
 				else  (self._noise_val * np.random.normal())
 		self._noise = self._noise[1:]
 		self._noise = np.append(self._noise, noise)
+
 		# generate sample and add noise
 		samp = np.sin(2 * np.pi * self._f * n / self._N) + noise
 		self._noisy_data = self._noisy_data[1:]
 		self._noisy_data = np.append(self._noisy_data, samp)
+
 		# recursive least squares (RLS) algorithm
 		for n in range(self._N - self._M):
 			tmp = self._noise[n:n + self._M].reshape(self._M, 1)
-			self._error[n] = self._noisy_data[n] - np.dot(tmp.T, self._h)
+			self._error[n] = self._noisy_data[n] \
+					- np.dot(tmp.T, self._h)
 			self._h += (self._delta * tmp * self._error[n])
 
 	# get adaptive recursive filter parameters
@@ -32,6 +36,7 @@ class AdaptiveRecursiveFilter(Animate):
 		self._delta = params[3]
 		self._noise_val = params[4]
 		self._uniform = params[5]
+		self._fontsize = 15
 
 	# create data arrays
 	def _create_data(self):
